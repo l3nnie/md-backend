@@ -1,56 +1,65 @@
 const generateMedicalPrompt = (topic, level = 'medical student', language = 'English') => `
-As a senior medical professor with over 30 years of experience teaching ${level} students, explain the topic of **${topic}** in ${language} with depth, clarity, and clinical relevance. Your response should reflect the structured style and integrative detail found in **Gray's Anatomy**, **Vishram Singh's Clinical Anatomy**, and **Harrison's Principles of Internal Medicine**.
+Generate a comprehensive medical explanation of **${topic}** for ${level}-level learners in ${language}, structured as follows:
 
-Your explanation must not only define and describe, but also **connect embryology, gross anatomy, physiology, pathology, and clinical practice** into a cohesive learning experience.
+1. **Definition & Core Concept**
+   - Precise anatomical/physiological definition (2-3 sentences)
+   - Key characteristics and clinical significance
+   - Systemic relationships and functional importance
 
-🧠 **Structure your response as follows:**
+2. **Embryological Foundations**
+   - Germ layer origin and developmental timeline
+   - Critical developmental events with clinical correlations
+   - Common congenital anomalies (if applicable)
 
-1. **Definition**  
-   - Provide a precise and concise definition (2–3 sentences).  
-   - Include anatomical location, physiological relevance, and systemic role.
+3. **Anatomical Architecture**
+   - Gross anatomical features and spatial relationships
+   - Neurovascular supply (arteries, veins, nerves, lymphatics)
+   - Surface landmarks and surgical/clinical relevance
+   - [Text-based anatomical diagram description]
 
-2. **Embryological Basis**  
-   - State the embryonic origin and germ layer.  
-   - Mention developmental milestones and their clinical implications (e.g., congenital defects).
+4. **Physiological Mechanisms**
+   - Normal functional processes
+   - Homeostatic relationships with other systems
+   - Key regulatory mechanisms
 
-3. **Anatomical Features**  
-   - Describe gross anatomy, neurovascular supply, lymphatics, and relations.  
-   - Add surface anatomy and anatomical landmarks relevant to examination or surgery.  
-   - Use simple labeled **text-based anatomical diagrams** if appropriate.
+5. **Pathological Spectrum** (bullet points)
+   - Major disease processes affecting this structure/system
+   - Pathoanatomical correlates of dysfunction
+   - Characteristic histopathological changes
 
-4. **Functional Significance**  
-   - Explain the physiological role and how anatomical integrity is essential for function.  
-   - Connect with related systems when applicable.
+6. **Clinical Presentation Patterns**
+   - Symptom complexes and physical findings
+   - Anatomical basis of clinical manifestations
+   - Red flags and danger signs
 
-5. **Key Pathophysiology (bullet points)**  
-   - Highlight major pathological processes involving this structure or system.  
-   - Focus on how anatomical disruption leads to clinical dysfunction.  
-   - Include common mechanisms (e.g., inflammation, ischemia, compression).
+7. **Diagnostic Framework**
+   - Evidence-based diagnostic approach:
+     * History elements
+     * Physical exam techniques
+     * Laboratory markers
+     * Imaging modalities
+   - Diagnostic criteria/classification systems
+   - [Flowchart description when applicable]
 
-6. **Clinical Presentation**  
-   - Detail typical symptoms and signs.  
-   - Relate findings directly to the underlying anatomy and physiology.  
-   - Highlight red flags, syndromic patterns, and referred pain areas.
+8. **Therapeutic Principles**
+   - Current management guidelines (with citation sources)
+   - Procedural/anatomical considerations
+   - Emerging therapies and research directions
 
-7. **Diagnostic Criteria**  
-   - Provide a structured approach: history, physical exam, lab, imaging.  
-   - Include diagnostic algorithms, scoring systems, or classification schemes where applicable.  
-   - Mention bedside tests or clinical maneuvers.
+9. **Clinical Integration**
+   - 3-5 high-yield clinical pearls
+   - Mnemonics or memory aids
+   - Common pitfalls and how to avoid them
+   - Interdisciplinary collaboration points
 
-8. **Management Guidelines**  
-   - Summarize evidence-based treatment strategies: medical, surgical, and rehabilitative.  
-   - Reference latest guidelines (e.g., NICE, WHO, AHA, ESC, CDC).  
-   - Emphasize anatomical or procedural considerations in interventions.
-
-9. **Clinical Pearls**  
-   - Share 3–5 high-yield takeaways that integrate anatomy, clinical reasoning, and real-world relevance.  
-   - Include mnemonics, danger zones, surgical landmarks, and exam tips.
-
-🔍 **Additional Expectations:**  
-- Use ${level}-appropriate medical terminology throughout.  
-- Make the explanation clinically engaging, academically rigorous, and visually supported when helpful.  
-- When relevant, include a **diagnostic flowchart**, **mnemonic device**, or **stepwise algorithm** to aid clinical decision-making.
-
+**Technical Requirements:**
+- Use ${level}-appropriate terminology with jargon explanations when needed
+- Maintain strict clinical accuracy with anatomical precision
+- Include conceptual diagrams described in text format
+- Reference current guidelines (last 5 years) without direct quotes
+- Emphasize clinical-anatomical correlations throughout
+- Format headings clearly for easy navigation
+- Omit introductory phrases - begin directly with content
 `;
 
 module.exports = { generateMedicalPrompt };

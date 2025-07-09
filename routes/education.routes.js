@@ -1,24 +1,56 @@
-const express = require('express');
-const { explainMedicalTopic } = require('../controllers/education.controller');
-const { generateMedicalPrompt, detectKenyanMedicalUnit } = require('../utils/promptGenerator');
+// education.controller.js
+exports.explainMedicalTopic = async (req, res, next) => {
+  try {
+    const { topic, level, language, kenyanContext, detectedUnit, customPrompt } = req.body;
+    
+    if (!topic) {
+      return res.status(400).json({ 
+        success: false,
+        error: 'Medical topic is required',
+        suggestedUnits: suggestRelatedKenyanUnits(topic) // Helper function
+      });
+    }
 
-const router = express.Router();
+    // Use the custom prompt if provided
+    const prompt = customPrompt || generateMedicalPrompt(topic, level, language);
+    
+    // Get explanation from AI model
+    const result = await model.generateContent(prompt);
+    const text = (await result.response).text();
 
-// Enhanced explain endpoint with Kenyan medical context
-router.post('/explain', (req, res, next) => {
-  // Add Kenyan context to request body
-  req.body.kenyanContext = true;
-  req.body.detectedUnit = detectKenyanMedicalUnit(req.body.topic);
-  
-  // Generate appropriate prompt
-  req.body.customPrompt = generateMedicalPrompt(
-    req.body.topic,
-    req.body.level || 'medical student',
-    req.body.language || 'English'
-  );
-  
-  // Proceed to controller
-  explainMedicalTopic(req, res, next);
-});
+    res.status(200).json({
+      success: true,
+      data: {
+        topic,
+        level,
+        unit: detectedUnit,
+        kenyanContext,
+        explanation: text
+      }
+    });
+    
+  } catch (error) {
+    console.error('Error generating explanation:', error);
+    res.status(500).json({ 
+      success: false,
+      error: 'Failed to generate medical explanation',
+      kenyanResources: getKenyanMedicalResources() // Fallback local resources
+    });
+  }
+};
 
-module.exports = router;
+// Helper functions
+function suggestRelatedKenyanUnits(topic) {
+  // Implementation to suggest Kenyan medical units
+  return [];
+}
+
+function getKenyanMedicalResources() {
+  return {
+    links: [
+      'https://www.health.go.ke',
+      'https://www.kmpdc.go.ke',
+      'https://www.amref.org'
+    ]
+  };
+}

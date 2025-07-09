@@ -8,7 +8,7 @@ const generateMedicalPrompt = (topic, level = 'medical student', language = 'Eng
     physiology: generatePhysiologyPrompt,
     biochemistry: generateBiochemistryPrompt,
     pathology: generatePathologyPrompt,
-    //microbiology: generateMicrobiologyPrompt,
+    microbiology: generateMicrobiologyPrompt,
     pharmacology: generatePharmacologyPrompt,
     medicine: generateMedicinePrompt,
     surgery: generateSurgeryPrompt,

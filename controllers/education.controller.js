@@ -1,4 +1,10 @@
-// education.controller.js
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+const { generateMedicalPrompt } = require('../utils/promptGenerator');
+
+// Initialize Gemini AI model
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
 exports.explainMedicalTopic = async (req, res, next) => {
   try {
     const { topic, level, language, kenyanContext, detectedUnit, customPrompt } = req.body;
@@ -7,16 +13,14 @@ exports.explainMedicalTopic = async (req, res, next) => {
       return res.status(400).json({ 
         success: false,
         error: 'Medical topic is required',
-        suggestedUnits: suggestRelatedKenyanUnits(topic) // Helper function
+        suggestedUnits: suggestRelatedKenyanUnits(topic)
       });
     }
 
-    // Use the custom prompt if provided
     const prompt = customPrompt || generateMedicalPrompt(topic, level, language);
-    
-    // Get explanation from AI model
     const result = await model.generateContent(prompt);
-    const text = (await result.response).text();
+    const response = await result.response;
+    const text = response.text();
 
     res.status(200).json({
       success: true,
@@ -34,7 +38,7 @@ exports.explainMedicalTopic = async (req, res, next) => {
     res.status(500).json({ 
       success: false,
       error: 'Failed to generate medical explanation',
-      kenyanResources: getKenyanMedicalResources() // Fallback local resources
+      kenyanResources: getKenyanMedicalResources()
     });
   }
 };
